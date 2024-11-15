@@ -235,8 +235,7 @@ int check_needs_rebuilding(Hash_Table * table) {
     }
     printf("Min collision: %d\nMax collision: %d\n", min, max);
     double res = (double)max / min;
-    // printf("%lf\n", res);
-    if(res - 2 > EPSILON) {
+    if(res >= 2 ) {
         return 1;
     }
     else

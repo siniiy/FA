@@ -15,18 +15,20 @@
 #define ANOTHER_MACRO 200
 #define TOTAL_ITEMS 50
 #define MAX_SCORE 100
-The value of PI is defined as PI
-The value of E is defined as E
-Hello, NAME
-A1 + B2 = C3
-D4 - E5 = F6
-G7 * H8 = I9
-J10 / LONG_MACRO_NAME = ANOTHER_MACRO
-The total number of items is TOTAL_ITEMS
-The maximum score is MAX_SCORE
-This is a test for long macro names: LONG_MACRO_NAME
-Another test for redundant definitions: A1 + B2 + C3 = 60
-#define EMPTY_MACRO
-The value of EMPTY_MACRO is EMPTY_MACRO
+#define COLLISION_MBCRO_1 305
+#define COLLISION_MACRO_2 300
+The value of 3.14 is defined as 3.14
+The value of 2.718 is defined as 2.718
+Hello, "John Doe"
+1 + 2 = 3
+4 - 5 = 6
+7 * 8 = 9
+10 / 100 = 200
+The total number of items is 50
+The maximum score is 100
+Collision macro 1 is 305
+Collision macro 2 is 300
+This is a test for long macro names: 100
+Another test for redundant definitions: 1 + 2 + 3 = 60
 No macro definitions here
-A1 + B2 + C3 + D4 = 1 + 2 + 3 + 4
+1 + 2 + 3 + 4 = 1 + 2 + 3 + 4
