@@ -30,7 +30,7 @@ int hash_function(char* key) {
     }
 
     if (num < 0) 
-        num = -1 * num;
+        num *= -1;
     return num;
 }
 
@@ -84,6 +84,9 @@ status insert(Hash_Table* table, char* key, char* value, int hash) {
     int index = hash % table->size;
 
     Ht_item * item = create_item(key, value);
+
+    if(item == NULL)
+        return INVALID_MEMORY;
 
     item->hash = hash;
 
