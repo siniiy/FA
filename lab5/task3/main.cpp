@@ -11,7 +11,7 @@ class log final {
             std::cout << value << std::endl;
         }
 
-        unsigned int accessor() {
+        unsigned int get_value() {
             return value;
         }
 
@@ -34,7 +34,7 @@ class log final {
 
         log disjunction(const unsigned int a) {
             log temp = log(a).inversion();
-            return this->inversion().conjunction(log(a).inversion().accessor()).inversion();
+            return this->inversion().conjunction(log(a).inversion().get_value()).inversion();
         }
 
         log implication(const unsigned int a) {
@@ -88,28 +88,28 @@ int main() {
 
 
     std::cout << "Conjunction: ";
-    goal.conjunction(goal2.accessor()).res_print();
+    goal.conjunction(goal2.get_value()).res_print();
 
     std::cout << "Disjunction: ";
-    goal.disjunction(goal2.accessor()).res_print();
+    goal.disjunction(goal2.get_value()).res_print();
 
     std::cout << "Implication: ";
-    goal.implication(goal2.accessor()).res_print();
+    goal.implication(goal2.get_value()).res_print();
 
     std::cout << "Coimplication: ";
-    goal.coimplication(goal2.accessor()).res_print();
+    goal.coimplication(goal2.get_value()).res_print();
 
     std::cout << "Xor: ";
-    goal.add_mod_2(goal2.accessor()).res_print();
+    goal.add_mod_2(goal2.get_value()).res_print();
 
     std::cout << "Equivalence: ";
-    goal.equivalence(goal2.accessor()).res_print();
+    goal.equivalence(goal2.get_value()).res_print();
 
     std::cout << "Pirs: ";
-    goal.Pirs(goal2.accessor()).res_print();
+    goal.Pirs(goal2.get_value()).res_print();
 
     std::cout << "Sheffer: ";
-    goal.Sheffer(goal2.accessor()).res_print();
+    goal.Sheffer(goal2.get_value()).res_print();
 
     std::cout << "Inversed goal: ";
     goal.inversion().res_print();
