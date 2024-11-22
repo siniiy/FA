@@ -11,15 +11,15 @@ class complex final {
         void info() const {
             std::cout << real << " " << img << "i" << std::endl;
         }
-        void add(const complex obj) {
+        void add(const complex &obj) {
             real += obj.real;
             img += obj.img;
         }
-        void substract(const complex obj) {
+        void substract(const complex &obj) {
             real -= obj.real;
             img -= obj.img;
         }
-        void multiply (complex obj) {
+        void multiply (const complex &obj) {
             double temp = real; // (a + ib) * (c + id) = ac + adi + bci - bd
             real = real * obj.real - img * obj.img;
             img = temp * obj.img + img * obj.real; 
