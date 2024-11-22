@@ -64,7 +64,7 @@ class log final {
         }
 
         void res_print() {
-            for (int i = 0; i < sizeof(value) << 3; i++) {
+            for (int i = 0; i < (sizeof(value) << 3); i++) {
                 std::cout<< this->get_bit(i);
             }
             
