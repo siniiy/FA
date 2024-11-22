@@ -24,19 +24,18 @@ class complex final {
             real = real * obj.real - img * obj.img;
             img = temp * obj.img + img * obj.real; 
         }
-        void divide (complex obj) {
+        void divide (const complex &obj) {
             double divider = obj.real * obj.real + obj.img * obj.img;
+            double old_real = real;
+
 
             if(divider < __DBL_EPSILON__) {
                 throw std::overflow_error("Division by zero");
             }
 
-            obj.img *= -1;
-
-            this->multiply(obj);
-
-            real /= divider;
-            img /= divider;
+            real = (real * obj.real + img * obj.img) / divider;
+            
+            img = (img * obj.real - old_real * obj.img);
         }
         double module() const {
             return std::sqrt(real * real + img * img);
