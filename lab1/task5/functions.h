@@ -13,7 +13,8 @@ typedef enum Status
     OK,
     INPUT_ERROR,
     MEMORY_ERROR,
-    OVERFLOW_ERROR
+    OVERFLOW_ERROR,
+    ROW_DIVERGES
 } status;
 
 status string_to_double(const char *str, double *result);

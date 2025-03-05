@@ -1,5 +1,5 @@
 #include "functions.h"
-
+// проверить где расходятся
 int main(int argc, char *argv[])
 {
     if (argc != 3) {
@@ -18,32 +18,52 @@ int main(int argc, char *argv[])
         return INPUT_ERROR;
     }
 
-    if (sum_a(x, eps, &result) != OK) {
-        printf("The value (a) could have been calculated incorrectly\n");
-        flag = 1;
+    switch(sum_a(x, eps, &result)) {
+        case INPUT_ERROR: {
+            printf("a) Input error\n");
+            break;
+        }
+        case OK: {
+            printf("a) %lf\n", result);
+        }
     }
-    printf("a) %lf\n", result);
 
-    if (sum_b(x, eps, &result) != OK) {
-        printf("The value (b) could have been calculated incorrectly\n");
-        flag = 1;
+    switch(sum_b(x, eps, &result)) {
+        case INPUT_ERROR: {
+            printf("b) Input error\n");
+            break;
+        }
+        case OK: {
+            printf("b) %lf\n", result);
+        }
     }
-    printf("b) %lf\n", result);
 
-    if (sum_c(x, eps, &result) != OK) {
-        printf("The value (c) could have been calculated incorrectly\n");
-        flag = 1;
+    switch(sum_c(x, eps, &result)) { // 2.9... on x = 0.5
+        case INPUT_ERROR: {
+            printf("c) Input error\n");
+            break;
+        }
+        case ROW_DIVERGES: {
+            printf("c) Diverges\n");
+            break;
+        }
+        case OK: {
+            printf("c) %lf\n", result);
+        }
     }
-    printf("c) %lf\n", result);
 
-    if (sum_d(x, eps, &result) != OK) {
-        printf("The value (d) could have been calculated incorrectly\n");
-        flag = 1;
-    }
-    printf("d) %lf\n", result);
-
-    if (flag) {
-        return INPUT_ERROR;
+    switch(sum_d(x, eps, &result)) { // -0.106... on x = 0.5
+        case INPUT_ERROR: {
+            printf("d) Input error on\n");
+            break;
+        }
+        case ROW_DIVERGES: {
+            printf("d) Diverges\n");
+            break;
+        }
+        case OK: {
+            printf("d) %lf\n", result);
+        }
     }
     
     return 0;
