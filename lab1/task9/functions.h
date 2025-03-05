@@ -22,7 +22,7 @@ status string_to_int(const char *str, long *result);
 status generate_static_array(long array[], long a, long b);
 status swap_min_max(long array[]);
 status generate_dynamic_array(int **array, int size_array);
-status bubble_sort(int *array, int size_array);
+status quick_sort(int *array, int size_array);
 status find_nearest_num(int x, int *array, int size_array, int *res);
 status generate_sum_array(int *A, int *B, int *C, int size_array);
 

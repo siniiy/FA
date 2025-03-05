@@ -1,5 +1,5 @@
 #include "functions.h"
-
+//qsort
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         printf("Ошибка ввода\n");

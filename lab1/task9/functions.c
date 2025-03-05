@@ -76,20 +76,14 @@ status generate_dynamic_array(int **array, int size_array) {
     return OK;
 }
 
-status bubble_sort(int *array, int size_array) {
+void* int_cmp(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+status quick_sort(int *array, int size_array) {
     if (!array) return MEMORY_ERROR;
 
-    long temp;
-
-    for (int i = 0; i < size_array; i++) {
-        for (int j = 0; j < size_array - i - 1; j++) {
-            if (array[j + 1] < array[j]) {
-                array[j] = array[j] ^ array[j + 1];
-                array[j + 1] = array[j] ^ array[j + 1]; 
-                array[j] = array[j] ^ array[j + 1];
-            }
-        }
-    }
+    qsort(array, size_array, sizeof(int), int_cmp);
 
     return OK;
 }
@@ -120,7 +114,7 @@ status find_nearest_num(int x, int *array, int size_array, int *res) {
 
 status generate_sum_array(int *A, int *B, int *C, int size_array) {
     if (!A || !B || !C) return MEMORY_ERROR;
-    bubble_sort(B, size_array);
+    quick_sort(B, size_array);
     int fnm;
 
     for (int i = 0; i < size_array; i++) {
