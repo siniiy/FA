@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
             return INPUT_ERROR;
         }
         else if (argv[1][1] == 'n') {
-            outfile_path = (char *)malloc((strlen(argv[3])) * sizeof(char));
+            outfile_path = (char *)malloc(((strlen(argv[3])) + 1) * sizeof(char));
             if (outfile_path == NULL) {
                 printf("Memory error\n");
                 fclose(input);
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
                 return INPUT_ERROR;
             }
 
-            printf("Compare filepaths return: %d\n", res);
+            // printf("Compare filepaths return: %d\n", res);
 
             strcpy(outfile_path, argv[3]);
             output = fopen(argv[3], "w");

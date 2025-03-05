@@ -9,7 +9,7 @@
         "request": "launch",
         "program": "${fileDirname}/${fileBasenameNoExtension}",
         "args": [
-            "-na",
+            "-ni",
             "in.txt",
             "out.txt"
         ],

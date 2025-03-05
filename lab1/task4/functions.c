@@ -1,6 +1,6 @@
 #include "functions.h"
 
-status compare_filepaths(char * file_1, char * file_2, int *res) { // Compares two absolute filepaths, uses realpath(), needs <stdlib.h>
+status compare_filepaths(char *file_1, char *file_2, int *res) { // Compares two absolute filepaths, uses realpath(), needs <stdlib.h>
     if(!file_1 || !file_2 || !res) return INPUT_ERROR;
 
     char* temp_1 = realpath(file_1, NULL);
@@ -12,7 +12,7 @@ status compare_filepaths(char * file_1, char * file_2, int *res) { // Compares t
         return MEMORY_ERROR;
     }
 
-    printf("%s\n%s\n", temp_1, temp_2);
+    // printf("%s\n%s\n", temp_1, temp_2);
 
     *res = strcmp(temp_1, temp_2);
     free(temp_1);
@@ -25,7 +25,7 @@ status exclude_nums(FILE *in, FILE *out) {
 
     int c;
     while ((c = fgetc(in)) != EOF) {
-        if (c >= '0' && c <= '9')
+        if (isdigit(c))
             continue;
         fputc(c, out);
     }
@@ -40,9 +40,7 @@ status count_letters(FILE *in, FILE *out) {
     int c, count_letters = 0, num_string = 1;
 
     while ((c = fgetc(in)) != EOF) {
-
-        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) count_letters++;
-        
+        if(isalpha(c)) count_letters++;
         else if (c == '\n') {
             fprintf(out, "строка №%d, букв латинского алфавита: %d\n", num_string, count_letters);
             count_letters = 0;
