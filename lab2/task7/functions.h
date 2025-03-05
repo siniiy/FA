@@ -10,7 +10,7 @@
 
 typedef enum Status
 {
-    SUCCESS,
+    OK,
     NO_ROOTS,
     INPUT_ERROR
 } status;
@@ -21,5 +21,6 @@ double func3(double x);
 double func4(double x);
 double func5(double x);
 status dichotomy_method(double *res, double left, double right, double eps, double (*f)(double));
+status bisection_method(double *res, double left, double right, double eps, double (*f)(double));
 
 #endif
