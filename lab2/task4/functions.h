@@ -9,7 +9,7 @@
 #include <math.h>
 #include <string.h>
 
-#define CAPACITY 100
+#define CAPACITY 128
 
 typedef enum Status {
     OK,

@@ -1,7 +1,7 @@
 #include "functions.h"
 
-double find_component(point a, point b, point c) {
-    double res = a.x * b.y + a.y * c.x + b.x * c.y - c.x * b.y - b.x * a.y - a.x * c.y;
+double find_product(point a, point b, point c) {
+    double res = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
     return res;
 }
 
@@ -12,29 +12,29 @@ int is_convex(int count_corners, ...) {
         return 1;
 
     point first, second, s1, s2, s3;
-    int component;
+    int product;
     va_list args;
     va_start(args, count_corners);
     first = va_arg(args, point);
     second = va_arg(args, point);
     s3 = va_arg(args, point);
-    component = (find_component(first, second, s3) >= 0.0) ? 1 : 0;
+    product = (find_product(first, second, s3) >= 0.0) ? 1 : 0;
     s1 = first;
     s2 = second;
     for (int i = 0; i < count_corners - 3; i++) {
         s1 = s2;
         s2 = s3;
         s3 = va_arg(args, point);
-        if (((find_component(s1, s2, s3) >= 0.0) ? 1 : 0) != component) {
+        if (((find_product(s1, s2, s3) >= 0.0) ? 1 : 0) != product) {
             va_end(args);
             return 0;
         }
     }
-    if (((find_component(s2, s3, first) >= 0.0) ? 1 : 0) != component) {
+    if (((find_product(s2, s3, first) >= 0.0) ? 1 : 0) != product) {
         return 0;
         va_end(args);
     }
-    if (((find_component(s3, first, second) >= 0.0) ? 1 : 0) != component) {
+    if (((find_product(s3, first, second) >= 0.0) ? 1 : 0) != product) {
         return 0;
         va_end(args);
     }
@@ -44,13 +44,13 @@ int is_convex(int count_corners, ...) {
 status find_polynom(double *res, double x, int n, ...) {
     if(!res || n < 0) return INPUT_ERROR;
     *res = 0;
-    if (n < 0)
-        return INPUT_ERROR;
 
+    int multiplier = 0;
     va_list coef;
     va_start(coef, n);
     for (int i = n; i >= 0; --i) {
-        *res += pow(x, i) * va_arg(coef, double);
+        multiplier = va_arg(coef, int);
+        *res += pow(x, i) * (double)multiplier;
         if (isinf(*res) || isnan(*res)) {
             va_end(coef);
             return OVERFLOW_ERROR;
@@ -72,7 +72,7 @@ status string_to_uint(const char *str, unsigned long *result, int base) {
 }
 
 status convert_to_xbase(unsigned long num, int base, char *result) {
-    if(!result) return INPUT_ERROR;
+    if(!result || base < 2) return INPUT_ERROR;
     int i, flag_minus = 0;
     char temp;
     int len_result = 0;
@@ -81,7 +81,7 @@ status convert_to_xbase(unsigned long num, int base, char *result) {
         flag_minus = 1;
     }
     while (num) {
-        result[len_result++] = ((num % base > 9) ? (num % base - 10 + 'A') : (num % base + '0'));
+        result[len_result++] = ((num % base > 9) ? (num % base + 'A' - 10) : (num % base + '0'));
         num /= base;
     }
     if (flag_minus)
@@ -91,7 +91,7 @@ status convert_to_xbase(unsigned long num, int base, char *result) {
         result[i] = result[len_result - 1 - i];
         result[len_result - 1 - i] = temp;
     }
-    result[len_result] = '\000';
+    result[len_result] = '\0';
 
     return OK;
 }
@@ -131,7 +131,7 @@ status is_kaprekar(int count_numbers, char *ans, int base, ...) {
     int len, flag = 0;
     unsigned long x, sum;
 
-    for (int i = 0; i < count_numbers; i++) {
+    for (int i = 0; i < count_numbers; i++) { // Исходную строку в число, потом число в квадрат, потом для каждого разбиения на левую и правую части квадрата высчитываем сумму, если хоть одна совпадает с исходным числом, то это число капрекара
         strcpy(number, va_arg(args, char *));
         if (string_to_uint(number, &x, base) != OK || pow_base(number, base) != OK || ULONG_MAX / x < x) {
             va_end(args);
@@ -144,13 +144,11 @@ status is_kaprekar(int count_numbers, char *ans, int base, ...) {
         for (int j = 1; j < len; j++) {
             strncpy(left, number, j);
             left[j] = '\0';
-            if (sum_base(left, &(number[j]), base, &sum) != OK)
-            {
+            if (sum_base(left, number + j, base, &sum) != OK) {
                 va_end(args);
                 return INPUT_ERROR;
             }
-            if (sum == x)
-            {
+            if (sum == x) {
                 flag = 1;
                 break;
             }

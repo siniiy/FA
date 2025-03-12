@@ -1,10 +1,14 @@
 #include "functions.h"
 
-int main()
-{
-    puts("\nTest 4.1\n");
+int main() {
     int res;
-    point p1 = (point){0, 0};
+    point p1 = (point){1, 1};
+    res = is_convex(1, p1);
+    if (res) printf("\t result: yes\n");
+    else printf("\t result: no\n");
+
+    puts("\nTest 4.1\n");
+    p1 = (point){0, 0};
     point p2 = (point){1, 0};
     point p3 = (point){1, 1};
     point p4 = (point){0, 1};
@@ -56,7 +60,7 @@ int main()
     double result;
     // Test 1
     printf("\ttest 1\n2x^2 + 3x + 4 at x = 1\nexpected result: 9\n");
-    switch (find_polynom(&result, 1.0, 2, 2.0, 3.0, 4.0)) {
+    switch (find_polynom(&result, 1.0, 2, 2, 3, 4)) {
     case INPUT_ERROR:
         printf("Input error\n");
         return INPUT_ERROR;
@@ -72,7 +76,7 @@ int main()
 
     // Test 2
     printf("\n\ttest 2\n1x^3 + 2x^2 + 3x + 4 at x = 2\nexpected result: 26\n");
-    switch (find_polynom(&result, 2.0, 3, 1.0, 2.0, 3.0, 4.0)) {
+    switch (find_polynom(&result, 2.0, 3, 1, 2, 3, 4)) {
     case INPUT_ERROR:
         printf("Input error\n");
         return INPUT_ERROR;
@@ -88,7 +92,7 @@ int main()
 
     // Test 3
     printf("\n\ttest 3\n1x^4 + 2x^3 + 3x^2 + 4x + 5 at x = 2\nexpected result: 57\n");
-    switch (find_polynom(&result, 2.0, 4, 1.0, 2.0, 3.0, 4.0, 5.0)) {
+    switch (find_polynom(&result, 2.0, 4, 1, 2, 3, 4, 5)) {
     case INPUT_ERROR:
         printf("Input error\n");
         return INPUT_ERROR;
@@ -104,7 +108,7 @@ int main()
 
     // Test 4
     printf("\n\ttest 4\n1x^5 + 2x^4 + 3x^3 + 4x^2 + 5x + 6 at x = 1\nexpected result: 21\n");
-    switch (find_polynom(&result, 1.0, 5, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0)) {
+    switch (find_polynom(&result, 1.0, 5, 1, 2, 3, 4, 5, 6)) {
     case INPUT_ERROR:
         printf("Input error\n");
         return INPUT_ERROR;
@@ -118,8 +122,8 @@ int main()
         break;
     }
 
-    printf("\n\ttest 5\nOverflow check\nexpected result: error\n");
-    switch (find_polynom(&result, 1e20, 2, 1e300, 1e100, 1e307)) {
+    printf("\n\ttest 5\nOverflow check\nexpected result: Overflow error\n");
+    switch (find_polynom(&result, 2e300, 1, 2e20, 2e30)) {
     case INPUT_ERROR:
         printf("Input error\n");
         return INPUT_ERROR;
